@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'package:cryptospeed/modals/cryptocurrency.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../modals/api.dart';
 
 class MarketProvider with ChangeNotifier {
@@ -11,9 +11,9 @@ class MarketProvider with ChangeNotifier {
   }
 
   void fetchData() async {
-      List<dynamic> _markets = await API.getMarket();
+      List<dynamic> markets = await API.getMarket();
       List<CryptoCurrency> temp =[];
-      for(var market in _markets){
+      for(var market in markets){
         CryptoCurrency newCrypto = CryptoCurrency.fromJSON(market);
         temp.add(newCrypto);
       }
@@ -21,5 +21,8 @@ class MarketProvider with ChangeNotifier {
       markets=temp;
       isLoading =false;
       notifyListeners();
+      Timer(const Duration(seconds: 3),(){
+        fetchData();
+      });
   }
 }

@@ -1,4 +1,6 @@
-import 'package:cryptospeed/providers/marketProvider.dart';
+import 'package:cryptospeed/constants/themes.dart';
+import 'package:cryptospeed/providers/market_Provider.dart';
+import 'package:cryptospeed/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,14 +20,22 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider<MarketProvider>(
         create: (context) => MarketProvider(),
       ),
-    ],
-    child:  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
+      ChangeNotifierProvider<ThemeProvider>(
+        create: (context) => ThemeProvider(),
       ),
+    ],
+     child: Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child){
+         return  MaterialApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: themeProvider.themeMode,
+      theme: lightTheme,
+      darkTheme: DarkTheme,
       home: const Homepage(),
-    ),
+    );
+     },
+     ),
+    
     );
   
   }

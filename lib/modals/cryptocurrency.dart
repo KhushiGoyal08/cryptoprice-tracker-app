@@ -4,7 +4,7 @@ class CryptoCurrency{
    String? symbol;
    String? name;
    String? image;
-   double? currentPrice;
+  double? currentPrice;
    double? marketCap;
    double? high24;
    double? low24;
