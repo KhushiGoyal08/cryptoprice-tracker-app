@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
          return  MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: themeProvider.themeMode,
-      theme: lightTheme,
+      theme:lightTheme,
       darkTheme: DarkTheme,
       home: const Homepage(),
     );
