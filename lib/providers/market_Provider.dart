@@ -5,7 +5,7 @@ import '../modals/api.dart';
 
 class MarketProvider with ChangeNotifier {
   bool isLoading = true;
-  List<CryptoCurrency> markets = [];
+  List<CryptoCurrency> data = [];
   MarketProvider(){
     fetchData();
   }
@@ -18,11 +18,17 @@ class MarketProvider with ChangeNotifier {
         temp.add(newCrypto);
       }
 
-      markets=temp;
+      data=temp;
       isLoading =false;
       notifyListeners();
-      // Timer(const Duration(seconds: 3),(){
-      //   fetchData();
-      // });
+      Timer(const Duration(seconds: 3),(){
+        fetchData();
+      });
   }
+  
+  CryptoCurrency fetchCryptoById(String id){
+    CryptoCurrency crypto = data.where((element) => element.id==id).toList()[0];
+    return crypto;
+  }
+
 }

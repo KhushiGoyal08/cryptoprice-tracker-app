@@ -21,6 +21,21 @@ class CryptoCurrency{
    
    );
    factory CryptoCurrency.fromJSON(Map<String,dynamic>map){
-    return CryptoCurrency(id:map["id"] , symbol: map["symbol"], name: map["name"], image: map["image"], currentPrice: map["current_price"], marketCap: map["market_cap"], high24: map["high_24h"], marketCapRank: map["market_cap_rank"], low24: map["low_24h"], priceChange24: map["price_change_24h"], priceChangePercentage24:map["price_change_percentage_24h"], ath:map["ath"] , atl:map["atl"] , circulatingSupply:map["circulating_supply"] );
+    return CryptoCurrency(
+      id:map["id"] ,
+     symbol: map["symbol"], 
+    name: map["name"],
+     image: map["image"], 
+     currentPrice: double.parse(map["current_price"].toString()), 
+    marketCap: double.parse(map["market_cap"].toString()),
+     high24: double.parse(map["high_24h"].toString()), 
+     marketCapRank: map["market_cap_rank"],
+ low24: double.parse(map["low_24h"].toString()), 
+ priceChange24: double.parse(map["price_change_24h"].toString()), 
+ priceChangePercentage24:double.parse(map["price_change_percentage_24h"].toString()), 
+ ath:double.parse(map["ath"].toString()) ,
+  atl:double.parse(map["atl"].toString()) ,
+circulatingSupply:double.parse(map["circulating_supply"].toString())
+    );
    }
 }
