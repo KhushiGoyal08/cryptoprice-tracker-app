@@ -3,6 +3,8 @@ import 'package:cryptospeed/providers/market_Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/theme_provider.dart';
+
 class DetailsPage extends StatefulWidget {
   final String id;
   const DetailsPage({Key? key, required this.id}) : super(key: key);
@@ -12,7 +14,8 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  Widget titleAndDetail(String title, String detail,CrossAxisAlignment crossAxisAlignment) {
+  Widget titleAndDetail(
+      String title, String detail, CrossAxisAlignment crossAxisAlignment) {
     return Column(
       crossAxisAlignment: crossAxisAlignment,
       children: [
@@ -23,14 +26,17 @@ class _DetailsPageState extends State<DetailsPage> {
             fontSize: 17,
           ),
         ),
-        Text(detail,
-        style: const TextStyle(
-          fontSize: 17,
-        ),
+        Text(
+          detail,
+          style: const TextStyle(
+            fontSize: 17,
+          ),
         ),
       ],
     );
   }
+
+  List<String> days = ["7", "15", "30", "45", "60", "90", "120"];
 
   @override
   Widget build(BuildContext context) {
@@ -73,25 +79,48 @@ class _DetailsPageState extends State<DetailsPage> {
                   const SizedBox(
                     height: 30,
                   ),
+                  Container(
+                    height: 50,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: days.length,
+                        itemBuilder: (context, index) {
+                          return  InkWell(
+                            onTap: (){
+                            
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical:10 ),
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              decoration:  BoxDecoration(
+                              color: (Provider.of<ThemeProvider>(context, listen: true).themeMode==ThemeMode.light)? Colors.blue : const Color.fromARGB(255, 129, 244, 188),
+                             borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Text(days[index],
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: (Provider.of<ThemeProvider>(context, listen: true).themeMode==ThemeMode.light)? Colors.white :  Colors.black,
+                              ),
+                              ),
+                              ),
+                          );
+                        }),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                    ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      titleAndDetail("Market Cap",
-                          "₹${currentcrypto.marketCap!.toStringAsFixed(4)}",CrossAxisAlignment.start),
-                           titleAndDetail("Market Cap Rank",
-                          "₹${currentcrypto.marketCapRank!.toStringAsFixed(4)}",CrossAxisAlignment.end),
-                    ],
-                  ),
-                   const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      titleAndDetail("Low 24h",
-                          "₹${currentcrypto.low24!.toStringAsFixed(4)}",CrossAxisAlignment.start),
-                           titleAndDetail("High 24h",
-                          "₹${currentcrypto.high24!.toStringAsFixed(4)}",CrossAxisAlignment.end),
+                      titleAndDetail(
+                          "Market Cap",
+                          "₹${currentcrypto.marketCap!.toStringAsFixed(4)}",
+                          CrossAxisAlignment.start),
+                      titleAndDetail(
+                          "Market Cap Rank",
+                          "₹${currentcrypto.marketCapRank!.toStringAsFixed(4)}",
+                          CrossAxisAlignment.end),
                     ],
                   ),
                   const SizedBox(
@@ -100,21 +129,42 @@ class _DetailsPageState extends State<DetailsPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      titleAndDetail("Circulating Supply",
-                          "₹${currentcrypto.circulatingSupply!.toStringAsFixed(4)}",CrossAxisAlignment.start),
-                         
+                      titleAndDetail(
+                          "Low 24h",
+                          "₹${currentcrypto.low24!.toStringAsFixed(4)}",
+                          CrossAxisAlignment.start),
+                      titleAndDetail(
+                          "High 24h",
+                          "₹${currentcrypto.high24!.toStringAsFixed(4)}",
+                          CrossAxisAlignment.end),
                     ],
                   ),
-                   const SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      titleAndDetail("All Time Low",
-                          "₹${currentcrypto.atl!.toStringAsFixed(4)}",CrossAxisAlignment.start),
-                           titleAndDetail("All Time High",
-                          "₹${currentcrypto.ath!.toStringAsFixed(4)}",CrossAxisAlignment.end),
+                      titleAndDetail(
+                          "Circulating Supply",
+                          "₹${currentcrypto.circulatingSupply!.toStringAsFixed(4)}",
+                          CrossAxisAlignment.start),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      titleAndDetail(
+                          "All Time Low",
+                          "₹${currentcrypto.atl!.toStringAsFixed(4)}",
+                          CrossAxisAlignment.start),
+                      titleAndDetail(
+                          "All Time High",
+                          "₹${currentcrypto.ath!.toStringAsFixed(4)}",
+                          CrossAxisAlignment.end),
                     ],
                   ),
                 ],

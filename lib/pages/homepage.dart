@@ -73,18 +73,16 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                 
+                  const Search(),
                   const Market(),
-                  
                 ],
               ),
             ),
           ),
-          Container(
-            child: Search(),
-          ),
+          // Container(
+          //   child: Search(),
+          // ),
           Container(
             child: const Favorites(),
           ),
@@ -92,52 +90,27 @@ class _HomepageState extends State<Homepage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorites',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Portfolio',
-            ),
-          ],
-          currentIndex: selectedIndex,
-          selectedItemColor: (themeProvider.themeMode == ThemeMode.light)
-              ? Colors.blue
-              : const Color.fromARGB(255, 129, 244, 188),
-          unselectedItemColor: Colors.grey,
-          onTap: OnTapped),
-
-//selectedItemColor: colour,
-      //  Container(
-      //     height: 60,
-      //     decoration: BoxDecoration(
-      //       color: (themeProvider.themeMode == ThemeMode.light)
-      //           ? Colors.white
-      //           : const Color(0xff15101a),
-      //       borderRadius: const BorderRadius.only(
-      //         topLeft: Radius.circular(30),
-      //         topRight: Radius.circular(30),
-      //       ),
-      //       boxShadow: const [
-      //         BoxShadow(
-      //           color: Colors.grey,
-      //           blurRadius: 8,
-      //           spreadRadius: 5,
-      //           offset: Offset(0, 10),
-      //         )
-      //       ],
-      //     ),
-      //   ),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: selectedIndex,
+        selectedItemColor: (themeProvider.themeMode == ThemeMode.light)
+            ? Colors.blue
+            : const Color.fromARGB(255, 129, 244, 188),
+        unselectedItemColor: Colors.grey,
+        onTap: OnTapped,
+      ),
     );
   }
 }

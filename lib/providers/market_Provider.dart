@@ -10,11 +10,12 @@ class MarketProvider with ChangeNotifier {
   bool isLoading = true;
   List<CryptoCurrency> data = [];
   MarketProvider() {
-    fetchData();
+    String? text;
+    fetchData(text);
   }
 
-  void fetchData() async {
-    List<dynamic> _markets = await API.getMarket();
+  Future<String> fetchData(String? text) async {
+    List<dynamic> _markets = await API.getMarket(text!);
     List<String> favorites = await LocalStorage.Fetchfavorite();
     List<CryptoCurrency> temp = [];
     for (var market in _markets) {
@@ -28,9 +29,8 @@ class MarketProvider with ChangeNotifier {
     data = temp;
     isLoading = false;
     notifyListeners();
-    Timer(const Duration(seconds: 3), () {
-      fetchData();
-    });
+   
+    return text;
   }
 
   CryptoCurrency fetchCryptoById(String id) {
