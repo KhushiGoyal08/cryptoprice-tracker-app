@@ -1,12 +1,13 @@
 import 'package:cryptospeed/modals/cryptocurrency.dart';
 import 'package:cryptospeed/pages/DetailsPage.dart';
-import 'package:cryptospeed/pages/favorites.dart';
+import 'package:cryptospeed/pages/search.dart';
 import 'package:cryptospeed/providers/market_Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/theme_provider.dart';
 import 'Markets.dart';
+import 'favorites.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -15,79 +16,128 @@ class Homepage extends StatefulWidget {
   State<Homepage> createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
+class _HomepageState extends State<Homepage> {
   // ignore: non_constant_identifier_names
-   late List Currencies;
-   TabController? viewcontroller;
- 
-   @override
-  void initstate() {
-    viewcontroller = TabController(length: 2, vsync: this);
-    super.initState();
-  }
+  late List Currencies;
+  int selectedIndex = 0;
+  PageController pagecontroller = PageController();
 
   @override
+  void OnTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+      //updatecolor(index);
+    });
+    pagecontroller.jumpToPage(index);
+  }
+
   Widget build(BuildContext context) {
     ThemeProvider themeProvider =
-        Provider.of<ThemeProvider>(context, listen: false);
+        Provider.of<ThemeProvider>(context, listen: true);
+    // Color? colour = (themeProvider.themeMode == ThemeMode.light)
+    //    ? Colors.blue
+    //    : const Color.fromARGB(255, 129, 244, 188);
+    // void updatecolor( int index){
+    //   setState(){
+    //   colour = (themeProvider.themeMode == ThemeMode.light)
+    //     ? Colors.blue
+    //     : const Color.fromARGB(255, 129, 244, 188);
+    //   }
+    // }
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Welcome Back",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: PageView(
+        controller: pagecontroller,
+        children: [
+          SafeArea(
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Crypto Today",
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Crypto Today",
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          themeProvider.toggleTheme();
+                        },
+                        icon: (themeProvider.themeMode == ThemeMode.light)
+                            ? const Icon(Icons.dark_mode)
+                            : const Icon(Icons.light_mode),
+                      ),
+                    ],
                   ),
-                  IconButton(
-                    onPressed: () {
-                      themeProvider.toggleTheme();
-                    },
-                    icon: (themeProvider.themeMode == ThemeMode.light)
-                        ? const Icon(Icons.dark_mode)
-                        : const Icon(Icons.light_mode),
+                  const SizedBox(
+                    height: 20,
                   ),
+                  const Market(),
+                  
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              TabBar(
-                controller: viewcontroller,
-                tabs: const [
-                  Tab(
-                    child: Text("Markets"),
-                  ),
-                  Tab(
-                    child: Text("Favorites"),
-                  ),
-                ],
-              ),
-              const TabBarView(
-                children:[ 
-                  Market(),
-                  Favorites(),
-              ],
-              ),
-            ],
+            ),
           ),
-        ),
+          Container(
+            child: Search(),
+          ),
+          Container(
+            child: const Favorites(),
+          ),
+          Container(),
+        ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Portfolio',
+            ),
+          ],
+          currentIndex: selectedIndex,
+          selectedItemColor: (themeProvider.themeMode == ThemeMode.light)
+              ? Colors.blue
+              : const Color.fromARGB(255, 129, 244, 188),
+          unselectedItemColor: Colors.grey,
+          onTap: OnTapped),
+
+//selectedItemColor: colour,
+      //  Container(
+      //     height: 60,
+      //     decoration: BoxDecoration(
+      //       color: (themeProvider.themeMode == ThemeMode.light)
+      //           ? Colors.white
+      //           : const Color(0xff15101a),
+      //       borderRadius: const BorderRadius.only(
+      //         topLeft: Radius.circular(30),
+      //         topRight: Radius.circular(30),
+      //       ),
+      //       boxShadow: const [
+      //         BoxShadow(
+      //           color: Colors.grey,
+      //           blurRadius: 8,
+      //           spreadRadius: 5,
+      //           offset: Offset(0, 10),
+      //         )
+      //       ],
+      //     ),
+      //   ),
     );
   }
 }

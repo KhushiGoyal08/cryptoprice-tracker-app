@@ -1,11 +1,9 @@
 import 'package:cryptospeed/constants/themes.dart';
+import 'package:cryptospeed/pages/homepage.dart';
 import 'package:cryptospeed/providers/market_Provider.dart';
 import 'package:cryptospeed/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'pages/homepage.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
+    return MultiProvider(
+      providers: [
       ChangeNotifierProvider<MarketProvider>(
         create: (context) => MarketProvider(),
       ),
