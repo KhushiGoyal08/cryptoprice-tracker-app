@@ -10,7 +10,8 @@ class ThemeProvider with ChangeNotifier{
     themeMode = ThemeMode.dark;
     }
     else
-    {themeMode =ThemeMode.light;
+    {
+      themeMode =ThemeMode.light;
     }
         notifyListeners();
 }

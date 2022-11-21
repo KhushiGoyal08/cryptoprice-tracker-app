@@ -14,12 +14,13 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
-    String? text = '';
+    String? text = '20';
     return Container(
       padding: const EdgeInsets.only(
         top: 20,
         left: 10,
         right: 10,
+        
       ),
       child: Expanded(
         child: Column(

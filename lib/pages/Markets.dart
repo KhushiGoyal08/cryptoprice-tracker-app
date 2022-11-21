@@ -22,7 +22,7 @@ class _MarketState extends State<Market> {
         builder: (context, marketProvider, child) {
           if (marketProvider.isLoading == true) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: Text('Search The Number of coins'),
             );
           } else {
             if (marketProvider.data.length > 0) {
